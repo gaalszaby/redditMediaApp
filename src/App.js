@@ -24,8 +24,11 @@ function App() {
 
   const fetchPosts = (event) => {
     event.preventDefault();
+    const searchText = event.target.searchtext.value;
+    const popularity = event.target.topgroup.value;
+    const postAmount = event.target.posts.value;
     fetch(
-      `https://www.reddit.com/r/${event.target[0].value}/${event.target[1].value}.json?limit=20&t=month`
+      `https://www.reddit.com/r/${searchText}/${popularity}.json?limit=${postAmount}&t=month`
     )
       .catch((err) => {
         if (err) {
@@ -86,10 +89,12 @@ function App() {
       <MediaModal
         isShown={modalShow}
         closeHandler={handleClose}
-        mediaUrl={redditPosts.length > 0 && redditPosts[imgIndex].data.url}
-        mediaTitle={redditPosts.length > 0 && redditPosts[imgIndex].data.title}
+        mediaUrl={redditPosts.length > 0 && redditPosts[imgIndex]?.data?.url}
+        mediaTitle={
+          redditPosts.length > 0 && redditPosts[imgIndex]?.data?.title
+        }
         mediaPermaLink={
-          redditPosts.length > 0 && redditPosts[imgIndex].data.permalink
+          redditPosts.length > 0 && redditPosts[imgIndex]?.data?.permalink
         }
       />
     </>
